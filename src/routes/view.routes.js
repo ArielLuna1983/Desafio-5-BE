@@ -1,15 +1,12 @@
 import express from 'express';
-import exphbs from 'express-handlebars';
 import ProductManager from '../managers/ProductManager';
 
 const router = express.Router();
+
+router.use(express.json());
+router.use(express.urlencoded({ extended:true }));
+
 const pm = new ProductManager();
-
-router.engine('hbs', exphbs());
-router.set('view engine', 'hbs');
-router.set('views', path.join(__dirname, '../views'));
-
-router.use(express.static('../public'));
 
 router.get('/', async (req, res) => {
     try {

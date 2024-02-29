@@ -1,8 +1,8 @@
 import express from "express";
 import http from "http";
-import exphbs from "express-handlebars.";
+import exphbs from "express-handlebars";
 import { Server } from "socket.io";
-import viewsRoutes from './routes/views.routes.js';
+import viewsRouter from './routes/view.routes.js';
 import productsRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import ProductManager from './managers/ProductManager.js';
@@ -19,13 +19,13 @@ const cm = new CartManager();
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
 
-app.engine("hbs", exphbs());
-app.set("view engine", "hbs");
+app.engine("handlebars", exphbs.engine());
+app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
 app.use (express.static("./src/public"));
 
-app.use('/', viewsRoutes);
+app.use('/', viewsRouter);
 app.use('/products', productsRouter);
 app.use('/cart', cartRouter);
 
